@@ -3,16 +3,51 @@
 @tailwind utilities;
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');;
 
+
 @layer components {
   .main-header {
-    @apply fixed flex justify-around p-4 items-center w-screen;
+    @apply flex justify-around p-4 items-center w-screen;
     background-color: #ED1941;
   }
   .main-header img {
-    @apply w-2/5 md:w-1/10;
+    @apply w-1/5 md:w-1/10;
   }
   .main-header h1 {
-    @apply text-3xl md:text-5xl text-white;
+    @apply text-2xl text-center md:text-5xl text-white;
     font-family: 'Montserrat', sans-serif;
+  }
+  
+  .main-container {
+    @apply flex flex-col w-screen items-center h-screen;
+  }
+  
+  .form-container {
+    @apply w-4/5 h-3/5 lg:w-1/5 lg:h-2/5 text-white my-auto items-center p-4 rounded shadow-xl;
+    background-color: #ED1941;
+  }
+
+  .form-container label {
+    @apply flex flex-col m-2 w-11/12 h-1/5;
+  }
+  .form-container input {
+    @apply h-full;
+  }
+  .form-container form {
+    @apply flex flex-col items-center justify-around w-full h-full;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .form-container button {
+    @apply transform  my-auto bg-white text-black p-4 rounded hover:scale-110;
+  }
+
+}
+
+@layer base {
+  input {
+    @apply rounded focus:outline-none text-black text-center;
+  }
+  a {
+    @apply text-black hover:text-white
   }
 }

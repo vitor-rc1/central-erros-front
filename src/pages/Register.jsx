@@ -1,16 +1,16 @@
 import React from 'react';
 import Header from '../components/Header';
-import LoginForm from '../components/LoginForm';
+import RegisterForm from '../components/RegisterForm';
 
-function Login() {
+function Register() {
   return (
     <section className="main-container">
       <Header />
       <div className="form-container">
-        <LoginForm />
+        <RegisterForm />
       </div>
     </section>
   );
 }
 
-export default Login;
+export default Register;
