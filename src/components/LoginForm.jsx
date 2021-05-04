@@ -14,13 +14,15 @@ function LoginForm() {
       client_id: 'client_id',
       client_secret: 'client_secret',
     });
-    fetch('https://centraldeerrosjava.herokuapp.com/oauth/token', {
+    fetch('http://localhost:8080/oauth/token', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: loginObject,
-    });
+    })
+      .then((response) => response.json())
+      .then((json) => console.log(json));
   };
   return (
     <form onSubmit={submitLogin}>

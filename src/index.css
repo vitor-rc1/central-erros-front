@@ -41,6 +41,19 @@
     @apply transform  my-auto bg-white text-black p-4 rounded hover:scale-110;
   }
 
+  .main-tomorrow {
+    @apply h-screen w-screen flex justify-center items-center;
+    background-color: #ED1941;
+  }
+
+  .main-tomorrow h1 {
+    @apply text-5xl font-thin animate-pulse text-white;
+  }
+
+  .main-tomorrow b {
+    @apply font-bold 
+  }
+
 }
 
 @layer base {
