@@ -12,6 +12,27 @@
       opacity: 1;
     }
   }
+  @keyframes shake {
+    10%, 90% {
+      transform: translate3d(-1px, 0, 0);
+    }
+    
+    20%, 80% {
+      transform: translate3d(2px, 0, 0);
+    }
+  
+    30%, 50%, 70% {
+      transform: translate3d(-4px, 0, 0);
+    }
+  
+    40%, 60% {
+      transform: translate3d(4px, 0, 0);
+    }
+  }
+  .wrong {
+    animation-name: shake;
+    animation-duration: 1s
+  }
   .main-header {
     @apply flex justify-around p-4 items-center w-screen;
     background-color: #ed1941;
@@ -19,8 +40,8 @@
   .main-header img {
     @apply w-1/5 md:w-1/10;
   }
-  .main-header h1 {
-    @apply text-2xl text-center md:text-5xl text-white;
+  .main-header a {
+    @apply transform text-2xl text-center md:text-5xl hover:scale-105 duration-200 text-white;
     font-family: "Montserrat", sans-serif;
   }
 
@@ -38,6 +59,9 @@
   .form-container label {
     @apply flex flex-col m-2 w-11/12 h-1/5;
   }
+  .form-container label p {
+    @apply text-xs;
+  }
   .form-container input {
     @apply h-full;
   }
@@ -47,7 +71,7 @@
   }
 
   .form-container button {
-    @apply transform  duration-300 my-auto bg-white text-black p-4 focus:outline-none rounded hover:scale-110 hover:shadow-inner;
+    @apply transform duration-300 my-auto bg-white text-black p-4 focus:outline-none rounded hover:scale-110 hover:shadow-inner;
   }
 
   .main-tomorrow {
@@ -62,6 +86,7 @@
   .main-tomorrow b {
     @apply font-bold;
   }
+
 }
 
 @layer base {

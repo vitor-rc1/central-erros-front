@@ -1,9 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function Header() {
   return (
     <header className="main-header">
-      <h1>Central de Erros</h1>
+      <Link className="hero-title" to="/login">Central de Erros</Link>
       <img
         src="https://company-assets-highway.s3-us-west-1.amazonaws.com/cit/logo.png"
         alt="CIandT logo"

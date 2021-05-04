@@ -33,6 +33,7 @@ function LoginForm() {
           type="text"
           name="email"
           id="name"
+          required
         />
       </label>
       <label htmlFor="password">
@@ -42,6 +43,7 @@ function LoginForm() {
           type="password"
           name="password"
           id="password"
+          required
         />
       </label>
       <p>Ainda não é cadastrado?</p>
