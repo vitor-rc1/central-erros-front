@@ -1,29 +1,38 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');;
-
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap");
 
 @layer components {
+  @keyframes fade {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
   .main-header {
     @apply flex justify-around p-4 items-center w-screen;
-    background-color: #ED1941;
+    background-color: #ed1941;
   }
   .main-header img {
     @apply w-1/5 md:w-1/10;
   }
   .main-header h1 {
     @apply text-2xl text-center md:text-5xl text-white;
-    font-family: 'Montserrat', sans-serif;
+    font-family: "Montserrat", sans-serif;
   }
-  
+
   .main-container {
     @apply flex flex-col w-screen items-center h-screen;
   }
-  
+
   .form-container {
     @apply w-4/5 h-3/5 lg:w-1/5 lg:h-2/5 text-white my-auto items-center p-4 rounded shadow-xl;
-    background-color: #ED1941;
+    background-color: #ed1941;
+    animation-name: fade;
+    animation-duration: 2s;
   }
 
   .form-container label {
@@ -34,16 +43,16 @@
   }
   .form-container form {
     @apply flex flex-col items-center justify-around w-full h-full;
-    font-family: 'Montserrat', sans-serif;
+    font-family: "Montserrat", sans-serif;
   }
 
   .form-container button {
-    @apply transform  my-auto bg-white text-black p-4 rounded hover:scale-110;
+    @apply transform  duration-300 my-auto bg-white text-black p-4 focus:outline-none rounded hover:scale-110 hover:shadow-inner;
   }
 
   .main-tomorrow {
     @apply h-screen w-screen flex justify-center items-center;
-    background-color: #ED1941;
+    background-color: #ed1941;
   }
 
   .main-tomorrow h1 {
@@ -51,16 +60,15 @@
   }
 
   .main-tomorrow b {
-    @apply font-bold 
+    @apply font-bold;
   }
-
 }
 
 @layer base {
   input {
-    @apply rounded focus:outline-none text-black text-center;
+    @apply focus:border-b-4  text-sm duration-300 rounded focus:outline-none focus:border-black text-black text-center;
   }
   a {
-    @apply text-black hover:text-white
+    @apply text-black duration-300 hover:text-white;
   }
 }
