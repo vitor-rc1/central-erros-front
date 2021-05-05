@@ -13,26 +13,32 @@
     }
   }
   @keyframes shake {
-    10%, 90% {
+    10%,
+    90% {
       transform: translate3d(-1px, 0, 0);
     }
-    
-    20%, 80% {
+
+    20%,
+    80% {
       transform: translate3d(2px, 0, 0);
     }
-  
-    30%, 50%, 70% {
+
+    30%,
+    50%,
+    70% {
       transform: translate3d(-4px, 0, 0);
     }
-  
-    40%, 60% {
+
+    40%,
+    60% {
       transform: translate3d(4px, 0, 0);
     }
   }
   .wrong {
     animation-name: shake;
-    animation-duration: 1s
+    animation-duration: 1s;
   }
+
   .main-header {
     @apply flex justify-around p-4 items-center w-screen;
     background-color: #ed1941;
@@ -50,10 +56,14 @@
   }
 
   .form-container {
-    @apply w-4/5 h-3/5 lg:w-1/5 lg:h-2/5 text-white my-auto items-center p-4 rounded shadow-xl;
+    @apply flex w-4/5 h-3/5 lg:w-1/5 lg:h-2/5 text-white my-auto justify-center items-center p-4 rounded shadow-xl;
     background-color: #ed1941;
     animation-name: fade;
     animation-duration: 2s;
+  }
+
+  .form-container img{
+    @apply my-auto
   }
 
   .form-container label {
@@ -80,13 +90,19 @@
   }
 
   .main-tomorrow h1 {
-    @apply text-5xl font-thin animate-pulse text-white;
+    @apply text-5xl font-thin text-center animate-pulse text-white;
   }
 
   .main-tomorrow b {
     @apply font-bold;
   }
+  .created {
+    @apply flex flex-col h-full justify-around;
+  }
 
+  .created h1, .created a {
+    @apply text-center text-3xl ml-auto;
+  }
 }
 
 @layer base {

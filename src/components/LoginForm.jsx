@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Loading from '../loading.gif';
 
 function LoginForm() {
   const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
   const [password, setPassword] = useState('');
 
   const submitLogin = (e) => {
     e.preventDefault();
+    setLoading(true);
     const loginObject = new URLSearchParams({
       username: email,
       password,
@@ -14,7 +17,7 @@ function LoginForm() {
       client_id: 'client_id',
       client_secret: 'client_secret',
     });
-    fetch('http://localhost:8080/oauth/token', {
+    fetch('https://centraldeerrosjava.herokuapp.com/oauth/token', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -22,8 +25,13 @@ function LoginForm() {
       body: loginObject,
     })
       .then((response) => response.json())
-      .then((json) => console.log(json));
+      .then((json) => {
+        if (json.access_token) {
+          localStorage.setItem('Authorization', `Bearer ${json.access_token}`);
+        }
+      });
   };
+  if (loading) return <img src={Loading} alt="loading" />;
   return (
     <form onSubmit={submitLogin}>
       <label htmlFor="email">
