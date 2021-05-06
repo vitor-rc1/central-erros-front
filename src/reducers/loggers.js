@@ -4,7 +4,6 @@ const INITIAL_STATE = {
 };
 
 const loggers = (state = INITIAL_STATE, action) => {
-  console.log(action.value);
   switch (action.type) {
     case STORAGE_ALL_LOGGERS:
       return { ...state, allLoggers: [...action.value] };

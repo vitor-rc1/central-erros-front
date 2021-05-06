@@ -103,6 +103,24 @@
   .created h1, .created a {
     @apply text-center text-3xl ml-auto;
   }
+
+  .table-container {
+    @apply w-8/12 h-3/5 text-center font-extralight rounded-lg my-auto shadow-xl;
+    font-family: "Montserrat", sans-serif;
+    background-color: #ed1941
+  }
+  .table-container th {
+    @apply text-2xl p-4 text-white
+  }
+  .table-container tr {
+    @apply bg-white m-2;
+  }
+  
+  .table-container td {
+    @apply text-red-500 border-2 border-red-500;
+  }
+
+
 }
 
 @layer base {
