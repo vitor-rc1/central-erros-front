@@ -8,7 +8,6 @@ function App() {
   return (
     <Switch>
       <Route exatch path="/register" component={Register} />
-      <Route exatch path="/login" component={Login} />
       <Route exatch path="/dashboard" component={Dashboard} />
       <Route exatch path="/" component={Login} />
     </Switch>

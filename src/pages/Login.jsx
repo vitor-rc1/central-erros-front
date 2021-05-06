@@ -1,32 +1,26 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import Header from '../components/Header';
+import * as Actions from '../actions/index';
 import LoginForm from '../components/LoginForm';
+import { isAuthenticated } from '../service/Auth';
 import MakeTheirTomorrow from './MakeTheirTomorrowLoading';
 
 function Login() {
   const [redirect, setRedirect] = useState(false);
   const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    const notEqualErrorResponse = 1;
-    const Authorization = localStorage.getItem('Authorization') || '';
-    fetch(
-      'https://centraldeerrosjava.herokuapp.com/loggers',
-      {
-        method: 'GET',
-        headers: {
-          authorization: Authorization,
-        },
-      },
-      [],
-    )
-      .then((response) => response.json())
-      .then((json) => {
-        setLoading(false);
-        return json[notEqualErrorResponse]
-          ? setRedirect(true)
-          : setRedirect(false);
-      });
+  const dispatch = useDispatch();
+
+  useEffect(async () => {
+    const authenticated = await isAuthenticated();
+    if (authenticated[1]) {
+      dispatch(Actions.storageAllLoggers(authenticated[0]));
+      setRedirect(authenticated[1]);
+      return setLoading(false);
+    }
+    setLoading(false);
+    return setRedirect(authenticated[0]);
   });
   if (loading) return <MakeTheirTomorrow />;
   if (redirect) return <Redirect to="/dashboard" />;
