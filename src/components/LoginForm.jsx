@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import Loading from '../loading.gif';
 
-function LoginForm() {
+function LoginForm({ setRedirect }) {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [password, setPassword] = useState('');
@@ -28,6 +29,7 @@ function LoginForm() {
       .then((json) => {
         if (json.access_token) {
           localStorage.setItem('Authorization', `Bearer ${json.access_token}`);
+          setRedirect(true);
         }
       });
   };
@@ -60,5 +62,9 @@ function LoginForm() {
     </form>
   );
 }
+
+LoginForm.propTypes = {
+  setRedirect: PropTypes.func.isRequired,
+};
 
 export default LoginForm;

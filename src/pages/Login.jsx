@@ -10,12 +10,16 @@ function Login() {
   useEffect(() => {
     const notEqualErrorResponse = 1;
     const Authorization = localStorage.getItem('Authorization') || '';
-    fetch('https://centraldeerrosjava.herokuapp.com/loggers', {
-      method: 'GET',
-      headers: {
-        authorization: Authorization,
+    fetch(
+      'https://centraldeerrosjava.herokuapp.com/loggers',
+      {
+        method: 'GET',
+        headers: {
+          authorization: Authorization,
+        },
       },
-    }, [])
+      [],
+    )
       .then((response) => response.json())
       .then((json) => {
         setLoading(false);
@@ -30,7 +34,7 @@ function Login() {
     <section className="main-container">
       <Header />
       <div className="form-container">
-        <LoginForm />
+        <LoginForm setRedirect={setRedirect} />
       </div>
     </section>
   );
