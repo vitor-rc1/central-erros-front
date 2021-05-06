@@ -31,6 +31,7 @@ function LoginForm({ setRedirect }) {
           localStorage.setItem('Authorization', `Bearer ${json.access_token}`);
           setRedirect(true);
         }
+        setLoading(false);
       });
   };
   if (loading) return <img src={Loading} alt="loading" />;
