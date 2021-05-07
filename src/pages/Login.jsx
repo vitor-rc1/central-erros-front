@@ -21,7 +21,7 @@ function Login() {
     }
     setLoading(false);
     return setRedirect(authenticated[0]);
-  });
+  }, []);
   if (loading) return <MakeTheirTomorrow />;
   if (redirect) return <Redirect to="/dashboard" />;
   return (

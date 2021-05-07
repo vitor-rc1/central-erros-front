@@ -62,8 +62,8 @@
     animation-duration: 2s;
   }
 
-  .form-container img{
-    @apply my-auto
+  .form-container img {
+    @apply my-auto;
   }
 
   .form-container label {
@@ -100,27 +100,41 @@
     @apply flex flex-col h-full justify-around;
   }
 
-  .created h1, .created a {
+  .created h1,
+  .created a {
     @apply text-center text-3xl ml-auto;
   }
 
   .table-container {
     @apply w-8/12 h-3/5 text-center font-extralight rounded-lg my-auto shadow-xl;
     font-family: "Montserrat", sans-serif;
-    background-color: #ed1941
+    background-color: #ed1941;
   }
   .table-container th {
-    @apply text-2xl p-4 text-white
+    @apply text-2xl p-4 text-white;
   }
   .table-container tr {
-    @apply bg-white m-2;
+    @apply transform hover:shadow-2xl cursor-pointer border-black hover:translate-x-1 hover:translate-y-1 bg-white m-2 transition-all;
   }
-  
+
   .table-container td {
     @apply text-red-500 border-2 border-red-500;
   }
 
-
+  .log-container {
+    @apply absolute flex justify-center items-center flex-col w-6/12 h-2/5 text-white shadow-2xl border-white;
+    font-family: "Montserrat", sans-serif;
+    background-color: #ed1941;
+    animation-name: fade;
+    animation-duration: 0.4s;
+    top: 30%;
+  }
+  .log-container h1 {
+    @apply text-3xl;
+  }
+  .log-container p {
+    @apply mb-40;
+  }
 }
 
 @layer base {
