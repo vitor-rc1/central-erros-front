@@ -1,13 +1,147 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap");
+
+@layer components {
+  @keyframes fade {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  @keyframes shake {
+    10%,
+    90% {
+      transform: translate3d(-1px, 0, 0);
+    }
+
+    20%,
+    80% {
+      transform: translate3d(2px, 0, 0);
+    }
+
+    30%,
+    50%,
+    70% {
+      transform: translate3d(-4px, 0, 0);
+    }
+
+    40%,
+    60% {
+      transform: translate3d(4px, 0, 0);
+    }
+  }
+  .wrong {
+    animation-name: shake;
+    animation-duration: 1s;
+  }
+
+  .main-header {
+    @apply flex justify-around p-4 items-center w-screen;
+    background-color: #ed1941;
+  }
+  .main-header img {
+    @apply w-1/5 md:w-1/10;
+  }
+  .main-header a {
+    @apply transform text-2xl text-center md:text-5xl hover:scale-105 duration-200 text-white;
+    font-family: "Montserrat", sans-serif;
+  }
+
+  .main-container {
+    @apply flex flex-col w-screen items-center h-screen;
+  }
+
+  .form-container {
+    @apply flex w-4/5 h-3/5 lg:w-1/5 lg:h-2/5 text-white my-auto justify-center items-center p-4 rounded shadow-xl;
+    background-color: #ed1941;
+    animation-name: fade;
+    animation-duration: 2s;
+  }
+
+  .form-container img {
+    @apply my-auto;
+  }
+
+  .form-container label {
+    @apply flex flex-col m-2 w-11/12 h-1/5;
+  }
+  .form-container label p {
+    @apply text-xs;
+  }
+  .form-container input {
+    @apply h-full;
+  }
+  .form-container form {
+    @apply flex flex-col items-center justify-around w-full h-full;
+    font-family: "Montserrat", sans-serif;
+  }
+
+  .form-container button {
+    @apply transform duration-300 my-auto bg-white text-black p-4 focus:outline-none rounded hover:scale-110 hover:shadow-inner;
+  }
+
+  .main-tomorrow {
+    @apply h-screen w-screen flex justify-center items-center;
+    background-color: #ed1941;
+  }
+
+  .main-tomorrow h1 {
+    @apply text-5xl font-thin text-center animate-pulse text-white;
+  }
+
+  .main-tomorrow b {
+    @apply font-bold;
+  }
+  .created {
+    @apply flex flex-col h-full justify-around;
+  }
+
+  .created h1,
+  .created a {
+    @apply text-center text-3xl ml-auto;
+  }
+
+  .table-container {
+    @apply w-8/12 h-3/5 text-center font-extralight rounded-lg my-auto shadow-xl;
+    font-family: "Montserrat", sans-serif;
+    background-color: #ed1941;
+  }
+  .table-container th {
+    @apply text-2xl p-4 text-white;
+  }
+  .table-container tr {
+    @apply transform hover:shadow-2xl cursor-pointer border-black hover:translate-x-1 hover:translate-y-1 bg-white m-2 transition-all;
+  }
+
+  .table-container td {
+    @apply text-red-500 border-2 border-red-500;
+  }
+
+  .log-container {
+    @apply absolute flex justify-center items-center flex-col w-6/12 h-2/5 text-white shadow-2xl border-white;
+    font-family: "Montserrat", sans-serif;
+    background-color: #ed1941;
+    animation-name: fade;
+    animation-duration: 0.4s;
+    top: 30%;
+  }
+  .log-container h1 {
+    @apply text-3xl;
+  }
+  .log-container p {
+    @apply mb-40;
+  }
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@layer base {
+  input {
+    @apply focus:border-b-4  text-sm duration-300 rounded focus:outline-none focus:border-black text-black text-center;
+  }
+  a {
+    @apply text-black duration-300 hover:text-white;
+  }
 }
