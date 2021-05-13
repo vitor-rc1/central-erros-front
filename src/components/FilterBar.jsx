@@ -5,6 +5,7 @@ import * as Actions from '../actions/index';
 function FilterBar() {
   const [columnFilter, setColumnFilter] = useState('');
   const [filterText, setFilterText] = useState('');
+  const [level, setLevel] = useState('ERROR');
   const Authorization = localStorage.getItem('Authorization') || '';
   const dispatch = useDispatch();
   const fetchFilter = (e) => {
@@ -20,24 +21,38 @@ function FilterBar() {
       },
       [],
     )
-      .then((resolve) => {
-        if (resolve.status === 500) throw new Error('Enum error!?');
-        return resolve.json();
-      })
+      .then((resolve) => resolve.json())
       .then((json) => {
+        if (json.error) return json;
         dispatch(Actions.recentUrl(customUrl));
-        dispatch(Actions.storageAllLoggers(json));
+        return dispatch(Actions.storageAllLoggers(json));
       })
       .catch((error) => console.log(error));
   };
+  const textInput = (
+    <input
+      onChange={({ target }) => setFilterText(target.value)}
+      id="text"
+      type="text"
+    />
+  );
+
+  const levelInput = (
+    <select
+      value={level}
+      onChange={({ target }) => setLevel(target.value)}
+      id="text"
+      type="text"
+    >
+      <option default value="ERROR">ERROR</option>
+      <option value="INFO">INFO</option>
+      <option value="WARNING">WARNING</option>
+    </select>
+  );
   return (
     <form onSubmit={fetchFilter}>
       <label htmlFor="text">
-        <input
-          onChange={({ target }) => setFilterText(target.value)}
-          id="text"
-          type="text"
-        />
+        {columnFilter === 'level' ? levelInput : textInput}
       </label>
       <label htmlFor="filter">
         <select
