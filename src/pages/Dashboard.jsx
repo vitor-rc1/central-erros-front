@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import Header from '../components/Header';
+import * as Actions from '../actions/index';
+import FilterBar from '../components/FilterBar';
 import LogList from '../components/LogList';
 import PopUpLog from '../components/PopUpLog';
 import { isAuthenticated } from '../service/Auth';
@@ -9,16 +11,15 @@ import MakeTheirTomorrow from './MakeTheirTomorrowLoading';
 
 function Dashboard() {
   const [loading, setLoading] = useState(true);
-  const [loggers, setLoggers] = useState([]);
   const [redirect, setRedirect] = useState(false);
-  const { loading: popLoading, viewLog } = useSelector(
+  const { loading: popLoading, viewLog, allLoggers } = useSelector(
     (state) => state.loggers,
   );
-  console.log(popLoading);
+  const dispatch = useDispatch();
   useEffect(async () => {
     const authenticated = await isAuthenticated();
     if (authenticated[1]) {
-      setLoggers(authenticated[0]);
+      dispatch(Actions.storageAllLoggers(authenticated[0]));
       setRedirect(!authenticated[1]);
       return setLoading(false);
     }
@@ -30,7 +31,8 @@ function Dashboard() {
   return (
     <div className="main-container">
       <Header />
-      <LogList loggers={loggers} />
+      <FilterBar />
+      <LogList loggers={allLoggers} />
       {viewLog[0] && <PopUpLog log={viewLog[1]} loading={popLoading} />}
     </div>
   );
