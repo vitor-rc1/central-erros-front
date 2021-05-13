@@ -3,10 +3,12 @@ const VIEW_LOG = 'VIEW_LOG';
 const LOADING = 'LOADING';
 const OK = 'OK';
 const CLOSE_LOG = 'CLOSE_LOG';
+const RECENT_REQUEST_URL = 'RECENT_REQUEST_URL';
 const INITIAL_STATE = {
   allLoggers: [],
   viewLog: [false],
   loading: false,
+  url: 'https://centraldeerrosjava.herokuapp.com/loggers',
 };
 
 const loggers = (state = INITIAL_STATE, action) => {
@@ -21,6 +23,8 @@ const loggers = (state = INITIAL_STATE, action) => {
       return { ...state, loading: true };
     case OK:
       return { ...state, loading: false };
+    case RECENT_REQUEST_URL:
+      return { ...state, url: action.value };
     default:
       return { ...state };
   }
