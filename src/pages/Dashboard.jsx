@@ -8,6 +8,7 @@ import LogList from '../components/LogList';
 import PopUpLog from '../components/PopUpLog';
 import { isAuthenticated } from '../service/Auth';
 import MakeTheirTomorrow from './MakeTheirTomorrowLoading';
+import SwitchPages from '../components/SwitchPages';
 
 function Dashboard() {
   const [loading, setLoading] = useState(true);
@@ -34,6 +35,7 @@ function Dashboard() {
       <FilterBar />
       <LogList loggers={allLoggers} />
       {viewLog[0] && <PopUpLog log={viewLog[1]} loading={popLoading} />}
+      <SwitchPages />
     </div>
   );
 }

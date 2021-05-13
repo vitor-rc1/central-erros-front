@@ -9,8 +9,9 @@ function FilterBar() {
   const dispatch = useDispatch();
   const fetchFilter = (e) => {
     e.preventDefault();
+    const customUrl = `https://centraldeerrosjava.herokuapp.com/loggers?filter=${columnFilter}&value=${filterText}`;
     fetch(
-      `https://centraldeerrosjava.herokuapp.com/loggers?filter=${columnFilter}&value=${filterText}`,
+      customUrl,
       {
         method: 'GET',
         headers: {
@@ -24,7 +25,7 @@ function FilterBar() {
         return resolve.json();
       })
       .then((json) => {
-        console.log(json);
+        dispatch(Actions.recentUrl(customUrl));
         dispatch(Actions.storageAllLoggers(json));
       })
       .catch((error) => console.log(error));

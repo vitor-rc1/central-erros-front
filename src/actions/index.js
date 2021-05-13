@@ -4,6 +4,7 @@ const VIEW_LOG = 'VIEW_LOG';
 const LOADING = 'LOADING';
 const OK = 'OK';
 const CLOSE_LOG = 'CLOSE_LOG';
+const RECENT_REQUEST_URL = 'RECENT_REQUEST_URL';
 
 export const storageAllLoggers = (value) => ({
   type: STORAGE_ALL_LOGGERS,
@@ -12,6 +13,11 @@ export const storageAllLoggers = (value) => ({
 
 export const closeLog = () => ({
   type: CLOSE_LOG,
+});
+
+export const recentUrl = (value) => ({
+  type: RECENT_REQUEST_URL,
+  value,
 });
 
 export const viewLog = (value) => async (dispatch) => {
