@@ -25,9 +25,10 @@ function RegisterForm() {
       },
       body: JSON.stringify(loginObject),
     })
-      .then((response) => response.json())
+      .then((response) => response.text())
       .then((json) => {
-        if (json.id) return setRegisterState('created');
+        console.log(json);
+        if (json === 'Usuário cadastrado com sucesso') return setRegisterState('created');
         setRegisterState('');
         return setErros(json);
       });

@@ -9,6 +9,7 @@ import PopUpLog from '../components/PopUpLog';
 import { isAuthenticated } from '../service/Auth';
 import MakeTheirTomorrow from './MakeTheirTomorrowLoading';
 import SwitchPages from '../components/SwitchPages';
+import SideMenu from '../components/SideMenu';
 
 function Dashboard() {
   const [loading, setLoading] = useState(true);
@@ -23,17 +24,16 @@ function Dashboard() {
     const authenticated = await isAuthenticated();
     if (authenticated[1]) {
       dispatch(Actions.storageAllLoggers(authenticated[0]));
-      setRedirect(!authenticated[1]);
       return setLoading(false);
     }
-    setLoading(false);
     return setRedirect(!authenticated[1]);
   }, []);
-  if (loading) return <MakeTheirTomorrow />;
   if (redirect) return <Redirect to="/" />;
+  if (loading) return <MakeTheirTomorrow />;
   return (
     <div className="main-container">
       <Header sideMenu />
+      <SideMenu />
       <FilterBar />
       <LogList loggers={allLoggers} />
       {viewLog[0] && <PopUpLog log={viewLog[1]} loading={popLoading} />}

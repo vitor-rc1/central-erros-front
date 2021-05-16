@@ -16,7 +16,7 @@ export const isAuthenticated = () => {
     )
       .then((response) => response.json())
       .then((json) => {
-        if (json.error) return resolve(false);
+        if (json.error) return resolve([false]);
         return resolve(json[notEqualErrorResponse] ? [json, true] : [json, false]);
       })
       .catch((error) => reject(error));
