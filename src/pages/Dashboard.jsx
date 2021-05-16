@@ -13,9 +13,11 @@ import SwitchPages from '../components/SwitchPages';
 function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [redirect, setRedirect] = useState(false);
-  const { loading: popLoading, viewLog, allLoggers } = useSelector(
-    (state) => state.loggers,
-  );
+  const {
+    loading: popLoading,
+    viewLog,
+    allLoggers,
+  } = useSelector((state) => state.loggers);
   const dispatch = useDispatch();
   useEffect(async () => {
     const authenticated = await isAuthenticated();
@@ -31,7 +33,7 @@ function Dashboard() {
   if (redirect) return <Redirect to="/" />;
   return (
     <div className="main-container">
-      <Header />
+      <Header sideMenu />
       <FilterBar />
       <LogList loggers={allLoggers} />
       {viewLog[0] && <PopUpLog log={viewLog[1]} loading={popLoading} />}
