@@ -18,14 +18,17 @@
   @keyframes slide-leave {
     0% {
       transform: translateY(0);
-      opacity: 0;
+      opacity: 1;
+      visibility: visible;
     }
     60% {
       transform: translateY(-125%);
+      opacity: 0.1;
+      visibility: visible;
     }
     100% {
-      transform: translateY(-100%);
-      opacity: 1;
+      transform: translateY(-200%);
+      opacity: 0;
     }
   }
   @keyframes fade {
@@ -171,9 +174,14 @@
     animation-duration: 1s;
   }
   .slide-leave {
-
     animation-name: slide-leave;
     animation-duration: 1s;
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .start {
+    opacity: 0;
     visibility: hidden;
   }
 
