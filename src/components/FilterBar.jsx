@@ -5,12 +5,12 @@ import * as Actions from '../actions/index';
 function FilterBar() {
   const [columnFilter, setColumnFilter] = useState('');
   const [filterText, setFilterText] = useState('');
-  const [level, setLevel] = useState('ERROR');
+  const [filterLevel, setFilterLevel] = useState('ERROR');
   const Authorization = localStorage.getItem('Authorization') || '';
   const dispatch = useDispatch();
   const fetchFilter = (e) => {
     e.preventDefault();
-    const customUrl = `https://centraldeerrosjava.herokuapp.com/loggers?filter=${columnFilter}&value=${filterText}`;
+    const customUrl = `https://centraldeerrosjava.herokuapp.com/loggers?filter=${columnFilter}&value=${columnFilter === 'level' ? filterLevel : filterText}`;
     fetch(
       customUrl,
       {
@@ -39,8 +39,8 @@ function FilterBar() {
 
   const levelInput = (
     <select
-      value={level}
-      onChange={({ target }) => setLevel(target.value)}
+      value={filterLevel}
+      onChange={({ target }) => setFilterLevel(target.value)}
       id="text"
       type="text"
     >
