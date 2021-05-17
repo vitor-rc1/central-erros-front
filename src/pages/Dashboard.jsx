@@ -9,29 +9,31 @@ import PopUpLog from '../components/PopUpLog';
 import { isAuthenticated } from '../service/Auth';
 import MakeTheirTomorrow from './MakeTheirTomorrowLoading';
 import SwitchPages from '../components/SwitchPages';
+import SideMenu from '../components/SideMenu';
 
 function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [redirect, setRedirect] = useState(false);
-  const { loading: popLoading, viewLog, allLoggers } = useSelector(
-    (state) => state.loggers,
-  );
+  const {
+    loading: popLoading,
+    viewLog,
+    allLoggers,
+  } = useSelector((state) => state.loggers);
   const dispatch = useDispatch();
   useEffect(async () => {
     const authenticated = await isAuthenticated();
     if (authenticated[1]) {
       dispatch(Actions.storageAllLoggers(authenticated[0]));
-      setRedirect(!authenticated[1]);
       return setLoading(false);
     }
-    setLoading(false);
     return setRedirect(!authenticated[1]);
   }, []);
-  if (loading) return <MakeTheirTomorrow />;
   if (redirect) return <Redirect to="/" />;
+  if (loading) return <MakeTheirTomorrow />;
   return (
     <div className="main-container">
-      <Header />
+      <Header sideMenu />
+      <SideMenu />
       <FilterBar />
       <LogList loggers={allLoggers} />
       {viewLog[0] && <PopUpLog log={viewLog[1]} loading={popLoading} />}

@@ -7,7 +7,6 @@ function SwitchPages() {
   const Authorization = localStorage.getItem('Authorization') || '';
   const dispatch = useDispatch();
   const { url } = useSelector((state) => state.loggers);
-  console.log(url);
 
   useEffect(() => {
     fetch(
@@ -22,7 +21,6 @@ function SwitchPages() {
     )
       .then((response) => response.json())
       .then((json) => {
-        console.log(json);
         dispatch(Actions.storageAllLoggers(json));
       });
   }, [page]);

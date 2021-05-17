@@ -5,11 +5,12 @@ import * as Actions from '../actions/index';
 function FilterBar() {
   const [columnFilter, setColumnFilter] = useState('');
   const [filterText, setFilterText] = useState('');
+  const [filterLevel, setFilterLevel] = useState('ERROR');
   const Authorization = localStorage.getItem('Authorization') || '';
   const dispatch = useDispatch();
   const fetchFilter = (e) => {
     e.preventDefault();
-    const customUrl = `https://centraldeerrosjava.herokuapp.com/loggers?filter=${columnFilter}&value=${filterText}`;
+    const customUrl = `https://centraldeerrosjava.herokuapp.com/loggers?filter=${columnFilter}&value=${columnFilter === 'level' ? filterLevel : filterText}`;
     fetch(
       customUrl,
       {
@@ -20,24 +21,38 @@ function FilterBar() {
       },
       [],
     )
-      .then((resolve) => {
-        if (resolve.status === 500) throw new Error('Enum error!?');
-        return resolve.json();
-      })
+      .then((resolve) => resolve.json())
       .then((json) => {
+        if (json.error) return json;
         dispatch(Actions.recentUrl(customUrl));
-        dispatch(Actions.storageAllLoggers(json));
+        return dispatch(Actions.storageAllLoggers(json));
       })
       .catch((error) => console.log(error));
   };
+  const textInput = (
+    <input
+      onChange={({ target }) => setFilterText(target.value)}
+      id="text"
+      type="text"
+    />
+  );
+
+  const levelInput = (
+    <select
+      value={filterLevel}
+      onChange={({ target }) => setFilterLevel(target.value)}
+      id="text"
+      type="text"
+    >
+      <option default value="ERROR">ERROR</option>
+      <option value="INFO">INFO</option>
+      <option value="WARNING">WARNING</option>
+    </select>
+  );
   return (
     <form onSubmit={fetchFilter}>
       <label htmlFor="text">
-        <input
-          onChange={({ target }) => setFilterText(target.value)}
-          id="text"
-          type="text"
-        />
+        {columnFilter === 'level' ? levelInput : textInput}
       </label>
       <label htmlFor="filter">
         <select
