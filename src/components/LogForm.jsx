@@ -2,20 +2,20 @@ import React, { useState } from 'react';
 import PopUpCreatedAccount from './PopUpCreatedAccount';
 import Loading from '../loading.gif';
 
-function LogForm() {
-  const [email, setEmail] = useState('');
+function RegisterForm() {
+  const [description, setDescription] = useState('');
   const [erros, setErros] = useState({});
+  const [level, setLevel] = useState('');
   const [registerState, setRegisterState] = useState('');
   const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
 
   const submitLogin = (e) => {
     e.preventDefault();
     setRegisterState('loading');
     setErros({});
     const loginObject = {
-      name,
-      login: email,
+      level,
+      description,
       password,
     };
     fetch('https://centraldeerrosjava.herokuapp.com/users', {
@@ -42,28 +42,30 @@ function LogForm() {
     default:
       return (
         <form onSubmit={submitLogin}>
-          <label htmlFor="name">
-            Nome
-            <input
-              className={erros.name && 'wrong'}
-              onChange={({ target }) => setName(target.value)}
-              type="text"
-              name="name"
-              id="name"
-              value={name}
-              required
-            />
+          <label htmlFor="level">
+            <select
+              value={level}
+              onChange={({ target }) => setLevel(target.value)}
+              id="level"
+              type="level"
+            >
+              <option default hidden>
+                ...
+              </option>
+              <option value="ERROR">ERROR</option>
+              <option value="INFO">INFO</option>
+              <option value="WARNING">WARNING</option>
+            </select>
           </label>
-          <label htmlFor="login">
-            Email:
-            <input
+          <label htmlFor="description">
+            Descrição
+            <textarea
               onClick={() => setErros({})}
-              className={erros.login && 'wrong'}
-              onChange={({ target }) => setEmail(target.value)}
-              type="text"
-              name="login"
-              id="login"
-              value={email}
+              className={erros.description && 'wrong'}
+              onChange={({ target }) => setDescription(target.value)}
+              name="description"
+              id="description"
+              value={description}
             />
             {erros.login && <p>Email já cadastrado</p>}
           </label>
@@ -86,4 +88,4 @@ function LogForm() {
   }
 }
 
-export default LogForm;
+export default RegisterForm;
