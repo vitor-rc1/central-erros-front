@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
@@ -7,6 +8,7 @@ import FilterBar from '../components/FilterBar';
 import LogList from '../components/LogList';
 import PopUpLog from '../components/PopUpLog';
 import { isAuthenticated } from '../service/Auth';
+import { pagenation } from '../service/Pagenation';
 import MakeTheirTomorrow from './MakeTheirTomorrowLoading';
 import SwitchPages from '../components/SwitchPages';
 import SideMenu from '../components/SideMenu';
@@ -23,7 +25,7 @@ function Dashboard() {
   useEffect(async () => {
     const authenticated = await isAuthenticated();
     if (authenticated[1]) {
-      dispatch(Actions.storageAllLoggers(authenticated[0]));
+      dispatch(Actions.storageAllLoggers(pagenation(authenticated[0], 8)));
       return setLoading(false);
     }
     return setRedirect(!authenticated[1]);
