@@ -167,10 +167,13 @@
   }
 
   .side-menu {
-    @apply absolute flex flex-col justify-center items-start p-4 rounded h-1/5 w-3/5 lg:w-1/6 bg-red-500 z-40 text-xl shadow-xl;
+    @apply ml-2 absolute flex flex-col justify-center items-start p-4 rounded h-1/5 w-3/5 lg:w-1/6 bg-red-500 z-40 text-xl text-white shadow-xl;
     font-family: "Montserrat", sans-serif;
     left: 0%;
     top: 30%;
+  }
+  .side-menu a, .side-menu button{
+    @apply text-white transform transition-all hover:scale-110;
   }
   .slide {
     animation-name: slide;
@@ -186,10 +189,6 @@
   .start {
     opacity: 0;
     visibility: hidden;
-  }
-
-  .side-menu button {
-    @apply text-black duration-300 hover:text-white;
   }
 
   .page-list {
