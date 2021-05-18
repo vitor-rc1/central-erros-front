@@ -20,12 +20,15 @@ function Dashboard() {
     loading: popLoading,
     viewLog,
     allLoggers,
+    pageLog,
   } = useSelector((state) => state.loggers);
   const dispatch = useDispatch();
   useEffect(async () => {
     const authenticated = await isAuthenticated();
     if (authenticated[1]) {
-      dispatch(Actions.storageAllLoggers(pagenation(authenticated[0], 8)));
+      const arrayPageable = pagenation(authenticated[0], 8);
+      dispatch(Actions.currentPageLog(arrayPageable[0]));
+      dispatch(Actions.storageAllLoggers(arrayPageable));
       return setLoading(false);
     }
     return setRedirect(!authenticated[1]);
@@ -37,7 +40,7 @@ function Dashboard() {
       <Header sideMenu />
       <SideMenu />
       <FilterBar />
-      <LogList loggers={allLoggers} />
+      <LogList loggers={pageLog} />
       {viewLog[0] && <PopUpLog log={viewLog[1]} loading={popLoading} />}
       <SwitchPages />
     </div>

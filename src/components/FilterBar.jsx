@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import * as Actions from '../actions/index';
+import { pagenation } from '../service/Pagenation';
 
 function FilterBar() {
   const [columnFilter, setColumnFilter] = useState('');
@@ -10,7 +11,9 @@ function FilterBar() {
   const dispatch = useDispatch();
   const fetchFilter = (e) => {
     e.preventDefault();
-    const customUrl = `https://centraldeerrosjava.herokuapp.com/loggers?filter=${columnFilter}&value=${columnFilter === 'level' ? filterLevel : filterText}`;
+    const customUrl = `https://centraldeerrosjava.herokuapp.com/loggers?filter=${columnFilter}&value=${
+      columnFilter === 'level' ? filterLevel : filterText
+    }`;
     fetch(
       customUrl,
       {
@@ -24,8 +27,9 @@ function FilterBar() {
       .then((resolve) => resolve.json())
       .then((json) => {
         if (json.error) return json;
-        dispatch(Actions.recentUrl(customUrl));
-        return dispatch(Actions.storageAllLoggers(json));
+        const arrayPageable = pagenation(json, 8);
+        dispatch(Actions.currentPageLog(arrayPageable[0]));
+        return dispatch(Actions.storageAllLoggers(arrayPageable));
       })
       .catch((error) => console.log(error));
   };
@@ -44,7 +48,9 @@ function FilterBar() {
       id="text"
       type="text"
     >
-      <option default value="ERROR">ERROR</option>
+      <option default value="ERROR">
+        ERROR
+      </option>
       <option value="INFO">INFO</option>
       <option value="WARNING">WARNING</option>
     </select>
