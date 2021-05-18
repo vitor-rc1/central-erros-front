@@ -5,18 +5,23 @@ const OK = 'OK';
 const CLOSE_LOG = 'CLOSE_LOG';
 const RECENT_REQUEST_URL = 'RECENT_REQUEST_URL';
 const SHOW_MENU = 'SHOW_MENU';
+const CURRENT_PAGE_LOG = 'CURRENT_PAGE_LOG';
 const INITIAL_STATE = {
   allLoggers: [],
   viewLog: [false],
   loading: false,
   menu: false,
   url: 'https://centraldeerrosjava.herokuapp.com/loggers',
+  pageLog: [],
 };
 
 const loggers = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case STORAGE_ALL_LOGGERS:
       return { ...state, allLoggers: [...action.value] };
+    case CURRENT_PAGE_LOG: {
+      return { ...state, pageLog: [...action.value] };
+    }
     case VIEW_LOG:
       return { ...state, viewLog: [...action.value] };
     case CLOSE_LOG:

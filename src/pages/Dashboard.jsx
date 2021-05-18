@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
@@ -7,6 +8,7 @@ import FilterBar from '../components/FilterBar';
 import LogList from '../components/LogList';
 import PopUpLog from '../components/PopUpLog';
 import { isAuthenticated } from '../service/Auth';
+import { pagenation } from '../service/Pagenation';
 import MakeTheirTomorrow from './MakeTheirTomorrowLoading';
 import SwitchPages from '../components/SwitchPages';
 import SideMenu from '../components/SideMenu';
@@ -18,12 +20,15 @@ function Dashboard() {
     loading: popLoading,
     viewLog,
     allLoggers,
+    pageLog,
   } = useSelector((state) => state.loggers);
   const dispatch = useDispatch();
   useEffect(async () => {
     const authenticated = await isAuthenticated();
     if (authenticated[1]) {
-      dispatch(Actions.storageAllLoggers(authenticated[0]));
+      const arrayPageable = pagenation(authenticated[0], 8);
+      dispatch(Actions.currentPageLog(arrayPageable[0]));
+      dispatch(Actions.storageAllLoggers(arrayPageable));
       return setLoading(false);
     }
     return setRedirect(!authenticated[1]);
@@ -35,7 +40,7 @@ function Dashboard() {
       <Header sideMenu />
       <SideMenu />
       <FilterBar />
-      <LogList loggers={allLoggers} />
+      <LogList loggers={pageLog} />
       {viewLog[0] && <PopUpLog log={viewLog[1]} loading={popLoading} />}
       <SwitchPages />
     </div>

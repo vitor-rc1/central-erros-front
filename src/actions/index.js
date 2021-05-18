@@ -6,9 +6,15 @@ const OK = 'OK';
 const CLOSE_LOG = 'CLOSE_LOG';
 const RECENT_REQUEST_URL = 'RECENT_REQUEST_URL';
 const SHOW_MENU = 'SHOW_MENU';
+const CURRENT_PAGE_LOG = 'CURRENT_PAGE_LOG';
 
 export const storageAllLoggers = (value) => ({
   type: STORAGE_ALL_LOGGERS,
+  value,
+});
+
+export const currentPageLog = (value) => ({
+  type: CURRENT_PAGE_LOG,
   value,
 });
 
