@@ -79,7 +79,7 @@
   }
 
   .main-container {
-    @apply flex flex-col w-screen items-center h-screen;
+    @apply flex flex-col w-screen justify-center items-center h-screen;
   }
 
   .form-container {
@@ -195,6 +195,23 @@
   .page-list button {
     @apply transform m-4 transition-all bg-red-500 w-20 h-16 hover:scale-110 rounded-xl focus:animate-pulse focus:outline-none text-2xl text-white;
   }
+
+  .filter-form-container {
+    @apply flex mx-auto justify-center items-center mt-4 rounded-lg w-3/5;
+    background-color: #ed1941;
+  }
+  .filter-form-container * {
+    @apply m-2;
+  }
+
+  .filter-form-container select {
+    @apply bg-white rounded-lg text-center focus:outline-none;
+  }
+
+  .filter-form-container button {
+    @apply transform bg-white rounded-lg text-center p-1 transition-all hover:scale-110;
+  }
+
 }
 
 @layer base {

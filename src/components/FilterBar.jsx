@@ -56,7 +56,7 @@ function FilterBar() {
     </select>
   );
   return (
-    <form onSubmit={fetchFilter}>
+    <form className="filter-form-container" onSubmit={fetchFilter}>
       <label htmlFor="text">
         {columnFilter === 'level' ? levelInput : textInput}
       </label>
