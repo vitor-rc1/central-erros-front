@@ -77,6 +77,9 @@
     @apply transform text-2xl text-center md:text-5xl hover:scale-105 duration-200 text-white;
     font-family: "Montserrat", sans-serif;
   }
+  .main-header svg {
+    @apply fill-current text-white transform transition-all hover:scale-110 cursor-pointer;
+  }
 
   .main-container {
     @apply flex flex-col w-screen justify-center items-center h-screen;
