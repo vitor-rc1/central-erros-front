@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import LogCard from './LogCard';
+import convertedDateTime from '../helpers/convertDateTime';
 
 function LogList({ loggers }) {
   return (
@@ -25,7 +26,7 @@ function LogList({ loggers }) {
               description={description}
               source={source}
               quantity={quantity}
-              date={date}
+              date={convertedDateTime(date)}
             />
           ),
         )}

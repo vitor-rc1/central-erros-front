@@ -12,7 +12,7 @@ function LogForm() {
   const submitLogin = (e) => {
     e.preventDefault();
     setRegisterState('loading');
-    setErros({});
+    // setErros({});
     const loginObject = {
       name,
       login: email,
@@ -25,7 +25,7 @@ function LogForm() {
       },
       body: JSON.stringify(loginObject),
     })
-      .then((response) => response.text())
+      .then((response) => response.json())
       .then((json) => {
         console.log(json);
         if (json === 'Usuário cadastrado com sucesso') return setRegisterState('created');
@@ -64,6 +64,7 @@ function LogForm() {
               name="login"
               id="login"
               value={email}
+              required
             />
             {erros.login && <p>Email já cadastrado</p>}
           </label>
@@ -76,6 +77,7 @@ function LogForm() {
               name="password"
               id="password"
               value={password}
+              required
             />
           </label>
           <div className="button-container">
