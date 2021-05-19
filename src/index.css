@@ -92,6 +92,10 @@
     animation-duration: 2s;
   }
 
+  .create-log {
+    @apply lg:h-3/5;
+  }
+
   .form-container img {
     @apply my-auto;
   }
@@ -223,4 +227,10 @@
   a {
     @apply text-black duration-300 hover:text-white;
   }
+}
+
+#level {
+  background-color: white;
+  color: black;
+  padding: 5px;
 }

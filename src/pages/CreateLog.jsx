@@ -7,7 +7,7 @@ function CreateLog() {
   return (
     <section className="main-container">
       <Header sideMenu />
-      <div className="form-container">
+      <div className="form-container create-log">
         <LogForm />
       </div>
       <SideMenu />

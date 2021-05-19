@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../components/Header';
-import RegisterForm from '../components/LogForm';
+import RegisterForm from '../components/RegisterForm';
 
 function Register() {
   return (

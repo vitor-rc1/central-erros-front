@@ -6,14 +6,11 @@ import { pagenation } from '../service/Pagenation';
 function FilterBar() {
   const [columnFilter, setColumnFilter] = useState('');
   const [filterText, setFilterText] = useState('');
-  const [filterLevel, setFilterLevel] = useState('ERROR');
   const Authorization = localStorage.getItem('Authorization') || '';
   const dispatch = useDispatch();
   const fetchFilter = (e) => {
     e.preventDefault();
-    const customUrl = `https://centraldeerrosjava.herokuapp.com/loggers?filter=${columnFilter}&value=${
-      columnFilter === 'level' ? filterLevel : filterText
-    }`;
+    const customUrl = `https://centraldeerrosjava.herokuapp.com/loggers?filter=${columnFilter}&value=${filterText}`;
     fetch(
       customUrl,
       {
@@ -33,6 +30,7 @@ function FilterBar() {
       })
       .catch((error) => console.log(error));
   };
+
   const textInput = (
     <input
       onChange={({ target }) => setFilterText(target.value)}
@@ -43,11 +41,12 @@ function FilterBar() {
 
   const levelInput = (
     <select
-      value={filterLevel}
-      onChange={({ target }) => setFilterLevel(target.value)}
+      value={filterText}
+      onChange={({ target }) => setFilterText(target.value)}
       id="text"
       type="text"
     >
+      <option hidden>...</option>
       <option default value="ERROR">
         ERROR
       </option>
@@ -55,12 +54,11 @@ function FilterBar() {
       <option value="WARNING">WARNING</option>
     </select>
   );
+
   return (
     <form className="filter-form-container" onSubmit={fetchFilter}>
-      <label htmlFor="text">
-        {columnFilter === 'level' ? levelInput : textInput}
-      </label>
       <label htmlFor="filter">
+        Filtrar por:
         <select
           id="filter"
           value={columnFilter}
@@ -72,6 +70,10 @@ function FilterBar() {
           <option value="quantity">Quantidade</option>
           <option value="level">Level</option>
         </select>
+      </label>
+      <label htmlFor="text">
+        Valor
+        {columnFilter === 'level' ? levelInput : textInput}
       </label>
       <button type="submit">Pesquisar</button>
     </form>
