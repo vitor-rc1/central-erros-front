@@ -1,19 +1,23 @@
-import React, { useState } from 'react';
-import PopUpCreatedAccount from './PopUpCreatedAccount';
+import React, { useState, useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import Loading from '../loading.gif';
 import convertDateTime from '../helpers/convertDateTime';
 
 function RegisterForm() {
-  const [description, setDescription] = useState('');
-  const [erros, setErros] = useState({});
-  const [level, setLevel] = useState('');
+  const Authorization = localStorage.getItem('Authorization') || '';
   const [registerState, setRegisterState] = useState('');
+  const [erros, setErros] = useState({});
+
+  const [description, setDescription] = useState('');
+  const [level, setLevel] = useState('ERROR');
   const [source, setSource] = useState('');
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
   const [eventLog, setEventLog] = useState('');
   const [date, setDate] = useState('');
 
-  const submitLogin = (e) => {
+  const submitLogin = async (e) => {
     e.preventDefault();
     setRegisterState('loading');
     setErros({});
@@ -24,29 +28,37 @@ function RegisterForm() {
       source,
       quantity,
       eventLog,
-      convertedDate,
+      date: convertedDate,
     };
 
-    console.log(loggerObject);
-    // fetch('https://centraldeerrosjava.herokuapp.com/loggers', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(loginObject),
-    // })
-    //   .then((response) => response.text())
-    //   .then((json) => {
-    //     console.log(json);
-    //     if (json === 'Usuário cadastrado com sucesso') return setRegisterState('created');
-    //     setRegisterState('');
-    //     return setErros(json);
-    //   });
+    const response = await fetch('https://centraldeerrosjava.herokuapp.com/loggers', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization,
+      },
+      body: JSON.stringify(loggerObject),
+    });
+    if (response.status === 201) {
+      setRegisterState('done');
+    } else {
+      const responseErro = await response.json();
+      console.log(responseErro);
+      setErros(responseErro);
+    }
   };
 
+  useEffect(() => {
+    if (registerState === 'done') {
+      setTimeout(() => { setRegisterState('created'); }, 2000);
+    }
+  }, [registerState]);
+
   switch (registerState) {
+    case 'done':
+      return <FontAwesomeIcon icon={faCheckCircle} alt="done" size="5x" />;
     case 'created':
-      return <PopUpCreatedAccount />;
+      return <Redirect to="/dashboard" />;
     case 'loading':
       return <img src={Loading} alt="loading" />;
     default:
@@ -61,10 +73,7 @@ function RegisterForm() {
               type="level"
               required
             >
-              <option hidden>
-                ...
-              </option>
-              <option value="ERROR">ERROR</option>
+              <option defaultValue value="ERROR">ERROR</option>
               <option value="INFO">INFO</option>
               <option value="WARNING">WARNING</option>
             </select>
@@ -103,6 +112,7 @@ function RegisterForm() {
               name="quantity"
               id="quantity"
               value={quantity}
+              min="1"
               required
             />
           </label>

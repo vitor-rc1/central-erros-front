@@ -92,6 +92,10 @@
     animation-duration: 2s;
   }
 
+  .create-log {
+    @apply lg:h-3/5;
+  }
+
   .form-container img {
     @apply my-auto;
   }
