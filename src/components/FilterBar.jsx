@@ -1,41 +1,49 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as Actions from '../actions/index';
 import convertDateTime from '../helpers/convertDateTime';
 
 function FilterBar() {
-  const [columnFilter, setColumnFilter] = useState('');
-  const [filterText, setFilterText] = useState('');
-  const [dateStart, setDateStart] = useState('');
-  const [dateEnd, setDateEnd] = useState('');
+  // const [columnFilter, setColumnFilter] = useState('');
+  // const [filterText, setFilterText] = useState('');
+  // const [dateStart, setDateStart] = useState('');
+  // const [dateEnd, setDateEnd] = useState('');
   const [clear, setClear] = useState(false);
   const dispatch = useDispatch();
+
+  const {
+    filterBar: {
+      column: columnFilter, value: filterText, dateStart, dateEnd,
+    },
+  } = useSelector((state) => state.loggers);
+
   const fetchFilter = () => {
     dispatch(Actions.setFilter({
       column: columnFilter,
       value: filterText,
     }));
+    // ao fazer um novo filtro, volta a página para a primeira posição
     dispatch(Actions.currentPageLog(0));
   };
 
   useEffect(() => {
     if (columnFilter === 'date') {
       const date = `${convertDateTime(dateStart)}and${convertDateTime(dateEnd)}`;
-      setFilterText(date);
+      dispatch(Actions.setFilterBarValues({ value: date, column: columnFilter }));
     }
   }, [dateEnd, dateStart]);
 
   const clearFilter = () => {
-    setFilterText('');
-    setColumnFilter('');
-    setDateStart('');
-    setDateEnd('');
+    dispatch(Actions.setFilterBarValues({ value: '', column: 'column' }));
+    dispatch(Actions.setFilterBarValues({ value: '', column: 'value' }));
+    dispatch(Actions.setFilterBarValues({ value: '', column: 'dateStart' }));
+    dispatch(Actions.setFilterBarValues({ value: '', column: 'dateEnd' }));
     setClear(true);
   };
 
   useEffect(() => {
     if (clear && !filterText && !columnFilter) {
-      fetchFilter(true);
+      fetchFilter();
     }
   }, [clear, filterText, columnFilter]);
 
@@ -43,10 +51,23 @@ function FilterBar() {
     <>
       Valor
       <input
-        onChange={({ target }) => setFilterText(target.value)}
+        onChange={({ target }) => dispatch(Actions.setFilterBarValues({ value: target.value, column: 'value' }))}
         value={filterText}
         id="text"
         type="text"
+      />
+    </>
+  );
+
+  const numberInput = (
+    <>
+      Valor
+      <input
+        onChange={({ target }) => dispatch(Actions.setFilterBarValues({ value: target.value, column: 'value' }))}
+        value={filterText}
+        id="text"
+        type="number"
+        min="1"
       />
     </>
   );
@@ -56,7 +77,7 @@ function FilterBar() {
       Valor
       <select
         value={filterText}
-        onChange={({ target }) => setFilterText(target.value)}
+        onChange={({ target }) => dispatch(Actions.setFilterBarValues({ value: target.value, column: 'value' }))}
         id="text"
       >
         <option hidden>...</option>
@@ -73,7 +94,7 @@ function FilterBar() {
     <>
       Inicio
       <input
-        onChange={({ target }) => setDateStart(target.value)}
+        onChange={({ target }) => dispatch(Actions.setFilterBarValues({ value: target.value, column: 'dateStart' }))}
         type="datetime-local"
         name="date"
         id="date"
@@ -82,7 +103,7 @@ function FilterBar() {
       />
       Fim
       <input
-        onChange={({ target }) => setDateEnd(target.value)}
+        onChange={({ target }) => dispatch(Actions.setFilterBarValues({ value: target.value, column: 'dateEnd' }))}
         type="datetime-local"
         name="date"
         id="date"
@@ -98,6 +119,8 @@ function FilterBar() {
         return levelInput;
       case 'date':
         return dateInput;
+      case 'id':
+        return numberInput;
       default:
         return textInput;
     }
@@ -110,7 +133,7 @@ function FilterBar() {
         <select
           id="filter"
           value={columnFilter}
-          onChange={({ target }) => setColumnFilter(target.value)}
+          onChange={({ target }) => dispatch(Actions.setFilterBarValues({ value: target.value, column: 'column' }))}
         >
           <option hidden>...</option>
           <option value="date">Data</option>

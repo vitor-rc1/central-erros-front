@@ -9,6 +9,7 @@ const CLOSE_LOG = 'CLOSE_LOG';
 const SHOW_MENU = 'SHOW_MENU';
 const CURRENT_PAGE_LOG = 'CURRENT_PAGE_LOG';
 const FILTER = 'FILTER';
+const FILTER_BAR_VALUES = 'FILTER_BAR_VALUES';
 
 export const storageAllLoggers = (value) => ({
   type: STORAGE_ALL_LOGGERS,
@@ -30,6 +31,11 @@ export const showMenu = () => ({
 
 export const setFilter = (value) => ({
   type: FILTER,
+  value,
+});
+
+export const setFilterBarValues = (value) => ({
+  type: FILTER_BAR_VALUES,
   value,
 });
 
