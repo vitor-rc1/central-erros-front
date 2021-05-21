@@ -25,13 +25,13 @@ function Dashboard() {
   const dispatch = useDispatch();
   useEffect(async () => {
     const authenticated = await isAuthenticated();
-    if (authenticated[1]) {
-      const arrayPageable = pagenation(authenticated[0], 8);
+    if (authenticated.content) {
+      const arrayPageable = pagenation(authenticated.content, 8);
       dispatch(Actions.currentPageLog(arrayPageable[0]));
       dispatch(Actions.storageAllLoggers(arrayPageable));
       return setLoading(false);
     }
-    return setRedirect(!authenticated[1]);
+    return setRedirect(!authenticated.content);
   }, []);
   if (redirect) return <Redirect to="/" />;
   if (loading) return <MakeTheirTomorrow />;

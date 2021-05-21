@@ -27,7 +27,6 @@ function SideMenu() {
   return (
     <div className={menuState}>
       <Link to="/createLog">Criar Log</Link>
-      <Link to="/viewLog">Visualizar Log por ID</Link>
       <Link to="/dashboard">Logs</Link>
       <button type="button" onClick={leaveOperation}>
         Sair

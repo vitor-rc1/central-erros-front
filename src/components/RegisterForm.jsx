@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PopUpCreatedAccount from './PopUpCreatedAccount';
 import Loading from '../loading.gif';
+import { CreateUser } from '../service/CreateUser';
 
 function LogForm() {
   const [email, setEmail] = useState('');
@@ -9,29 +10,21 @@ function LogForm() {
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
 
-  const submitLogin = (e) => {
+  const submitLogin = async (e) => {
     e.preventDefault();
     setRegisterState('loading');
-    // setErros({});
-    const loginObject = {
+    const newUser = {
       name,
       login: email,
       password,
     };
-    fetch('https://centraldeerrosjava.herokuapp.com/users', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(loginObject),
-    })
-      .then((response) => response.json())
-      .then((json) => {
-        console.log(json);
-        if (json === 'Usuário cadastrado com sucesso') return setRegisterState('created');
-        setRegisterState('');
-        return setErros(json);
-      });
+    const response = await CreateUser(newUser);
+    console.log(response);
+    if (response === 'created') {
+      return setRegisterState('created');
+    }
+    setRegisterState('');
+    return setErros(response);
   };
 
   switch (registerState) {
@@ -53,6 +46,8 @@ function LogForm() {
               value={name}
               required
             />
+            {erros.name && <p>{erros.name}</p>}
+
           </label>
           <label htmlFor="login">
             Email:
@@ -66,7 +61,7 @@ function LogForm() {
               value={email}
               required
             />
-            {erros.login && <p>Email já cadastrado</p>}
+            {erros.login && <p>{erros.login}</p>}
           </label>
           <label htmlFor="password">
             Senha:
@@ -79,6 +74,8 @@ function LogForm() {
               value={password}
               required
             />
+            {erros.password && <p>{erros.password}</p>}
+
           </label>
           <div className="button-container">
             <button type="submit">Cadastrar-se</button>
