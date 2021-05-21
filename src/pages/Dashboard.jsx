@@ -17,6 +17,8 @@ function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [redirect, setRedirect] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
+  const [columnFilter, setColumnFilter] = useState('');
+  const [valueFilter, setValueFilter] = useState('');
 
   const {
     loading: popLoading,
@@ -24,10 +26,12 @@ function Dashboard() {
     pageLog,
     ordenation,
     allLoggers,
+    filter,
   } = useSelector((state) => state.loggers);
   const dispatch = useDispatch();
   const loadLogs = async () => {
-    const response = await GetLogs({ pageLog, ordenation });
+    setLoading(true);
+    const response = await GetLogs({ pageLog, ordenation, filter });
     if (response) {
       const {
         content: logs,
@@ -40,6 +44,7 @@ function Dashboard() {
     } else {
       alert('Algo deu errado');
     }
+    setLoading(false);
   };
 
   useEffect(async () => {
@@ -52,11 +57,16 @@ function Dashboard() {
   }, []);
 
   useEffect(async () => {
-    if (currentPage !== pageLog.page) {
+    if (
+      currentPage !== pageLog.page
+      || (columnFilter !== filter.column && valueFilter !== filter.value)
+    ) {
       await loadLogs();
       setCurrentPage(pageLog.page);
+      setColumnFilter(filter.column);
+      setValueFilter(filter.value);
     }
-  }, [pageLog, ordenation]);
+  }, [pageLog, ordenation, filter]);
 
   if (redirect) return <Redirect to="/" />;
   if (loading) return <MakeTheirTomorrow />;

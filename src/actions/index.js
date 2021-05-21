@@ -8,6 +8,7 @@ const OK = 'OK';
 const CLOSE_LOG = 'CLOSE_LOG';
 const SHOW_MENU = 'SHOW_MENU';
 const CURRENT_PAGE_LOG = 'CURRENT_PAGE_LOG';
+const FILTER = 'FILTER';
 
 export const storageAllLoggers = (value) => ({
   type: STORAGE_ALL_LOGGERS,
@@ -25,6 +26,11 @@ export const closeLog = () => ({
 
 export const showMenu = () => ({
   type: SHOW_MENU,
+});
+
+export const setFilter = (value) => ({
+  type: FILTER,
+  value,
 });
 
 export const viewLog = (value) => async (dispatch) => {

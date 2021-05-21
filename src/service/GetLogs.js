@@ -4,8 +4,10 @@ const GetLogs = async (filters) => {
   const {
     pageLog: { size, page },
     ordenation: { column, order },
+    filter: { column: filterColumn, value },
   } = filters;
-  const verifyURL = `${URL}/loggers?page=${page}&size=${size}&sort=${column},${order}`;
+  const setFilter = !filterColumn && !value ? '' : `&filter=${filterColumn}&value=${value}`;
+  const verifyURL = `${URL}/loggers?page=${page}&size=${size}&sort=${column},${order}${setFilter}`;
   const authorization = localStorage.getItem('Authorization') || '';
 
   const loginResponse = await fetch(verifyURL, {

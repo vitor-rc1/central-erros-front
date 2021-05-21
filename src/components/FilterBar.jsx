@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import * as Actions from '../actions/index';
-import { pagenation } from '../service/Pagenation';
 import convertDateTime from '../helpers/convertDateTime';
 
 function FilterBar() {
@@ -10,34 +9,13 @@ function FilterBar() {
   const [dateStart, setDateStart] = useState('');
   const [dateEnd, setDateEnd] = useState('');
   const [clear, setClear] = useState(false);
-  const Authorization = localStorage.getItem('Authorization') || '';
   const dispatch = useDispatch();
   const fetchFilter = () => {
-    let customUrl = '';
-    if (clear) {
-      customUrl = 'https://centraldeerrosjava.herokuapp.com/loggers';
-    } else {
-      customUrl = `https://centraldeerrosjava.herokuapp.com/loggers?filter=${columnFilter}&value=${filterText}`;
-    }
-    fetch(
-      customUrl,
-      {
-        method: 'GET',
-        headers: {
-          authorization: Authorization,
-        },
-      },
-      [],
-    )
-      .then((resolve) => resolve.json())
-      .then((json) => {
-        if (json.error) return json;
-        const arrayPageable = pagenation(json, 8);
-        dispatch(Actions.currentPageLog(arrayPageable[0]));
-        setClear(false);
-        return dispatch(Actions.storageAllLoggers(arrayPageable));
-      })
-      .catch((error) => console.log(error));
+    dispatch(Actions.setFilter({
+      column: columnFilter,
+      value: filterText,
+    }));
+    dispatch(Actions.currentPageLog(0));
   };
 
   useEffect(() => {

@@ -6,6 +6,7 @@ const CLOSE_LOG = 'CLOSE_LOG';
 const SHOW_MENU = 'SHOW_MENU';
 const CURRENT_PAGE_LOG = 'CURRENT_PAGE_LOG';
 const CURRENT_ORDENATION = 'CURRENT_ORDENATION';
+const FILTER = 'FILTER';
 const INITIAL_STATE = {
   allLoggers: [],
   viewLog: [false],
@@ -13,6 +14,7 @@ const INITIAL_STATE = {
   menu: false,
   pageLog: { size: 8, page: 0, totalPages: 1 },
   ordenation: { column: 'id', order: 'desc' },
+  filter: { column: '', value: '' },
 };
 
 const loggers = (state = INITIAL_STATE, action) => {
@@ -28,6 +30,15 @@ const loggers = (state = INITIAL_STATE, action) => {
     }
     case CURRENT_ORDENATION: {
       return { ...state, ordenation: { ...action.value } };
+    }
+    case FILTER: {
+      return {
+        ...state,
+        filter: {
+          column: action.value.column,
+          value: action.value.value,
+        },
+      };
     }
     case VIEW_LOG:
       return { ...state, viewLog: [...action.value] };
