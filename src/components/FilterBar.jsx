@@ -29,7 +29,7 @@ function FilterBar() {
   useEffect(() => {
     if (columnFilter === 'date') {
       const date = `${convertDateTime(dateStart)}and${convertDateTime(dateEnd)}`;
-      dispatch(Actions.setFilterBarValues({ value: date, column: columnFilter }));
+      dispatch(Actions.setFilterBarValues({ value: date, column: 'value' }));
     }
   }, [dateEnd, dateStart]);
 
