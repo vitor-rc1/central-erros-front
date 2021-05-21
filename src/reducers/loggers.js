@@ -8,6 +8,7 @@ const CURRENT_PAGE_LOG = 'CURRENT_PAGE_LOG';
 const CURRENT_ORDENATION = 'CURRENT_ORDENATION';
 const FILTER = 'FILTER';
 const FILTER_BAR_VALUES = 'FILTER_BAR_VALUES';
+const ORDER_COLUMN = 'ORDER_COLUMN';
 const INITIAL_STATE = {
   allLoggers: [],
   viewLog: [false],
@@ -50,6 +51,8 @@ const loggers = (state = INITIAL_STATE, action) => {
         filterBar: { ...state.filterBar, [action.value.column]: action.value.value },
       };
     }
+    case ORDER_COLUMN:
+      return { ...state, ordenation: { ...action.value } };
     case VIEW_LOG:
       return { ...state, viewLog: [...action.value] };
     case CLOSE_LOG:

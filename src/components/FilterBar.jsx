@@ -4,10 +4,6 @@ import * as Actions from '../actions/index';
 import convertDateTime from '../helpers/convertDateTime';
 
 function FilterBar() {
-  // const [columnFilter, setColumnFilter] = useState('');
-  // const [filterText, setFilterText] = useState('');
-  // const [dateStart, setDateStart] = useState('');
-  // const [dateEnd, setDateEnd] = useState('');
   const [clear, setClear] = useState(false);
   const dispatch = useDispatch();
 

@@ -19,6 +19,8 @@ function Dashboard() {
   const [currentPage, setCurrentPage] = useState(0);
   const [columnFilter, setColumnFilter] = useState('');
   const [valueFilter, setValueFilter] = useState('');
+  const [order, setOrder] = useState('desc');
+  const [columnOrder, setColumnOrder] = useState('id');
 
   const {
     loading: popLoading,
@@ -60,11 +62,15 @@ function Dashboard() {
     if (
       currentPage !== pageLog.page
       || (columnFilter !== filter.column && valueFilter !== filter.value)
+      || (columnOrder !== ordenation.column)
+      || order !== ordenation.order
     ) {
       await loadLogs();
       setCurrentPage(pageLog.page);
       setColumnFilter(filter.column);
       setValueFilter(filter.value);
+      setOrder(ordenation.order);
+      setColumnOrder(ordenation.column);
     }
   }, [pageLog, ordenation, filter]);
 

@@ -6,7 +6,7 @@ import Loading from '../loading.gif';
 import convertDateTime from '../helpers/convertDateTime';
 
 function RegisterForm() {
-  const Authorization = localStorage.getItem('Authorization') || '';
+  const authorization = localStorage.getItem('Authorization') || '';
   const [registerState, setRegisterState] = useState('');
   const [erros, setErros] = useState({});
 
@@ -35,7 +35,7 @@ function RegisterForm() {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization,
+        authorization: `Bearer ${authorization}`,
       },
       body: JSON.stringify(loggerObject),
     });

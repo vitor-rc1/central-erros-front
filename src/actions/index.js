@@ -10,6 +10,7 @@ const SHOW_MENU = 'SHOW_MENU';
 const CURRENT_PAGE_LOG = 'CURRENT_PAGE_LOG';
 const FILTER = 'FILTER';
 const FILTER_BAR_VALUES = 'FILTER_BAR_VALUES';
+const ORDER_COLUMN = 'ORDER_COLUMN';
 
 export const storageAllLoggers = (value) => ({
   type: STORAGE_ALL_LOGGERS,
@@ -36,6 +37,11 @@ export const setFilter = (value) => ({
 
 export const setFilterBarValues = (value) => ({
   type: FILTER_BAR_VALUES,
+  value,
+});
+
+export const orderByColumn = (value) => ({
+  type: ORDER_COLUMN,
   value,
 });
 
