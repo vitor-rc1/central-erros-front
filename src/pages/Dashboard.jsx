@@ -8,31 +8,56 @@ import FilterBar from '../components/FilterBar';
 import LogList from '../components/LogList';
 import PopUpLog from '../components/PopUpLog';
 import { isAuthenticated } from '../service/Auth';
-import { pagenation } from '../service/Pagenation';
 import MakeTheirTomorrow from './MakeTheirTomorrowLoading';
 import SwitchPages from '../components/SwitchPages';
 import SideMenu from '../components/SideMenu';
+import GetLogs from '../service/GetLogs';
 
 function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [redirect, setRedirect] = useState(false);
+  const [currentPage, setCurrentPage] = useState(0);
+
   const {
     loading: popLoading,
     viewLog,
-    allLoggers,
     pageLog,
+    ordenation,
+    allLoggers,
   } = useSelector((state) => state.loggers);
   const dispatch = useDispatch();
+  const loadLogs = async () => {
+    const response = await GetLogs({ pageLog, ordenation });
+    if (response) {
+      const {
+        content: logs,
+        totalPages,
+        pageable: { pageNumber },
+      } = response;
+
+      dispatch(Actions.storageAllLoggers({ logs, totalPages }));
+      dispatch(Actions.currentPageLog(pageNumber));
+    } else {
+      alert('Algo deu errado');
+    }
+  };
+
   useEffect(async () => {
     const authenticated = await isAuthenticated();
-    if (authenticated.content) {
-      const arrayPageable = pagenation(authenticated.content, 8);
-      dispatch(Actions.currentPageLog(arrayPageable[0]));
-      dispatch(Actions.storageAllLoggers(arrayPageable));
+    if (authenticated) {
+      await loadLogs();
       return setLoading(false);
     }
-    return setRedirect(!authenticated.content);
+    return setRedirect(!authenticated);
   }, []);
+
+  useEffect(async () => {
+    if (currentPage !== pageLog.page) {
+      await loadLogs();
+      setCurrentPage(pageLog.page);
+    }
+  }, [pageLog, ordenation]);
+
   if (redirect) return <Redirect to="/" />;
   if (loading) return <MakeTheirTomorrow />;
   return (
@@ -40,7 +65,7 @@ function Dashboard() {
       <Header sideMenu />
       <SideMenu />
       <FilterBar />
-      <LogList loggers={pageLog} />
+      <LogList loggers={allLoggers} />
       {viewLog[0] && <PopUpLog log={viewLog[1]} loading={popLoading} />}
       <SwitchPages />
     </div>
