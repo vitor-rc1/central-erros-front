@@ -13,7 +13,9 @@ function FilterBar() {
     },
   } = useSelector((state) => state.loggers);
 
-  const fetchFilter = () => {
+  const fetchFilter = (event) => {
+    // eslint-disable-next-line no-unused-vars
+    if (event) event.preventDefault();
     dispatch(Actions.setFilter({
       column: columnFilter,
       value: filterText,
@@ -117,13 +119,15 @@ function FilterBar() {
         return dateInput;
       case 'id':
         return numberInput;
+      case 'quantity':
+        return numberInput;
       default:
         return textInput;
     }
   };
 
   return (
-    <form className="filter-form-container">
+    <form className="filter-form-container" onSubmit={fetchFilter}>
       <label htmlFor="filter">
         Filtrar por:
         <select
@@ -143,7 +147,7 @@ function FilterBar() {
       <label htmlFor="text">
         {selectInput(columnFilter)}
       </label>
-      <button type="button" onClick={fetchFilter}>Pesquisar</button>
+      <button type="submit">Pesquisar</button>
       <button type="button" onClick={clearFilter}>Limpar</button>
     </form>
   );

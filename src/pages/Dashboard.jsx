@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import Header from '../components/Header';
 import * as Actions from '../actions/index';
 import FilterBar from '../components/FilterBar';
@@ -61,8 +63,9 @@ function Dashboard() {
   useEffect(async () => {
     if (
       currentPage !== pageLog.page
-      || (columnFilter !== filter.column && valueFilter !== filter.value)
-      || (columnOrder !== ordenation.column)
+      || columnFilter !== filter.column
+      || valueFilter !== filter.value
+      || columnOrder !== ordenation.column
       || order !== ordenation.order
     ) {
       await loadLogs();
@@ -75,13 +78,14 @@ function Dashboard() {
   }, [pageLog, ordenation, filter]);
 
   if (redirect) return <Redirect to="/" />;
-  if (loading) return <MakeTheirTomorrow />;
+  // if (loading) return <MakeTheirTomorrow />;
   return (
     <div className="main-container">
       <Header sideMenu />
       <SideMenu />
       <FilterBar />
-      <LogList loggers={allLoggers} />
+      {loading && <FontAwesomeIcon icon={faSpinner} spin size="7x" className="spinner-loading" />}
+      <LogList loggers={allLoggers} loading={loading} />
       {viewLog[0] && <PopUpLog log={viewLog[1]} loading={popLoading} />}
       <SwitchPages />
     </div>

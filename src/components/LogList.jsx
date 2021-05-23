@@ -5,7 +5,7 @@ import * as Actions from '../actions/index';
 import LogCard from './LogCard';
 import convertedDateTime from '../helpers/convertDateTime';
 
-function LogList({ loggers }) {
+function LogList({ loggers, loading }) {
   const dispatch = useDispatch();
 
   const {
@@ -21,7 +21,7 @@ function LogList({ loggers }) {
   };
 
   return (
-    <table className="table-container">
+    <table className={`table-container ${loading && 'animate-pulse'}`}>
       <thead>
         <th>
           <button
@@ -111,5 +111,6 @@ LogList.propTypes = {
       date: PropTypes.string,
     }),
   ).isRequired,
+  loading: PropTypes.bool.isRequired,
 };
 export default LogList;
