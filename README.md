@@ -16,6 +16,7 @@ Aqui está a representação em uma aplicação Web da força da nossa [API](htt
 
 # Aplicação!
 > [Site](https://central-errors.vercel.app/)
+
 > Não é possível acessar a Dashboard da aplicação sem estar autenticado.
 
 ## Tela de **Login**
