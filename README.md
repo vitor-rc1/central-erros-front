@@ -39,6 +39,7 @@ No campo médio superior podemos filtrar por diversos campos, como:
 - Descrição
 - Level
 - Origem
+- Quantidade
 - Data | Inicío e fim (Intervalo)
 
 > Ao clicar em cada atributo do header da tablela, é filtrado por ordem do atributo selecionado.
