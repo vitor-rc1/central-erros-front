@@ -5,7 +5,7 @@ Aqui está a representação em uma aplicação Web da força da nossa [API](htt
 > Por amor e agradecimento a CI&T,  o projeto foi estilizado inteiramente com a branding da CI&T.
 
 ## Grupo
-- Pedro Paulo Marques da Costa [Github](https://github.com/PedroMarqdev) [Linkedin](https://www.linkedin.com/in/pedro-marques-9aaa651b4/)
+- Pedro Paulo Marques da Costa -> [Github](https://github.com/PedroMarqdev) | [Linkedin](https://www.linkedin.com/in/pedro-marques-9aaa651b4/)
 - Vitor
 - Berilo
 
