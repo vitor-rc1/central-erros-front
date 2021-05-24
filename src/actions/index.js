@@ -1,6 +1,4 @@
 /* eslint-disable import/prefer-default-export */
-import { URL } from '../service/URL.json';
-
 const STORAGE_ALL_LOGGERS = 'STORAGE_ALL_LOGGERS';
 const VIEW_LOG = 'VIEW_LOG';
 const LOADING = 'LOADING';
@@ -48,6 +46,7 @@ export const orderByColumn = (value) => ({
 export const viewLog = (value) => async (dispatch) => {
   await dispatch({ type: LOADING });
   const Authorization = localStorage.getItem('Authorization') || '';
+  const URL = window.env.REACT_APP_URL;
   fetch(`${URL}/loggers/${value}`, {
     method: 'GET',
     headers: {
