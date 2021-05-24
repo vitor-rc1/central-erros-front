@@ -1,4 +1,5 @@
 # Bem vindo ao front-end do **Central de erros**!
+Este é o front-end do projeto de conclusão do Acelera Dev Java Online, proporcionada pela CI&T e Trybe!
 Aqui está a representação em uma aplicação Web da força da nossa [API](https://github.com/PedroMarqdev/CentralErrosCodenation).
 > Por amor e agradecimento a CI&T,  o projeto foi estilizado inteiramente com a branding da CI&T.
 ## Grupo
@@ -25,18 +26,17 @@ o que está errado. Após isso, uma tela aparecerá perguntando se você quer ir
 O coração da aplicação, o Dashboard. Aqui é possível visualizar todos os logs divididos em tabelas, ao clicar em algum, mostrará uma informação adicional do log em formato de pop up.
 ### Filtragem
 No campo médio superior podemos filtrar por diversos campos, como:
--Id
--Descrição
--Level
--Origem
--Data | Inicío e fim (Intervalo)
+- Id
+- Descrição
+- Level
+- Origem
+- Data | Inicío e fim (Intervalo)
 > Ao clicar em cada atributo do header da tablela, é filtrado por ordem do atributo selecionado.
 ## Tela do **Cadastro de Logs**
 Aqui não há segredo, é possível cadastrar um novo log inserindo as informações necessárias.
 ![login_img](images/cadastro_log.png)
 
 ## Instalação
-
 Para instalar as dependências do projeto, você pode utilizar:
 ### `yarn test`
 E para abrir a aplicação, você pode utilizar:
