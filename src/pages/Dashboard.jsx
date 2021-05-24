@@ -10,10 +10,9 @@ import FilterBar from '../components/FilterBar';
 import LogList from '../components/LogList';
 import PopUpLog from '../components/PopUpLog';
 import { isAuthenticated } from '../service/Auth';
-import MakeTheirTomorrow from './MakeTheirTomorrowLoading';
 import SwitchPages from '../components/SwitchPages';
 import SideMenu from '../components/SideMenu';
-import GetLogs from '../service/GetLogs';
+import { GetLogs } from '../service/GetLogs';
 
 function Dashboard() {
   const [loading, setLoading] = useState(true);
@@ -78,7 +77,6 @@ function Dashboard() {
   }, [pageLog, ordenation, filter]);
 
   if (redirect) return <Redirect to="/" />;
-  // if (loading) return <MakeTheirTomorrow />;
   return (
     <div className="main-container">
       <Header sideMenu />

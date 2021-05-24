@@ -1,12 +1,12 @@
-import { URL } from './URL.json';
-
-const GetLogs = async (filters) => {
+/* eslint-disable import/prefer-default-export */
+export const GetLogs = async (filters) => {
   const {
     pageLog: { size, page },
     ordenation: { column, order },
     filter: { column: filterColumn, value },
   } = filters;
   const setFilter = !filterColumn && !value ? '' : `&filter=${filterColumn}&value=${value}`;
+  const URL = window.env.REACT_APP_URL;
   const verifyURL = `${URL}/loggers?page=${page}&size=${size}&sort=${column},${order}${setFilter}`;
   const authorization = localStorage.getItem('Authorization') || '';
 
@@ -24,5 +24,3 @@ const GetLogs = async (filters) => {
   console.log(jsonResponse);
   return jsonResponse;
 };
-
-export default GetLogs;

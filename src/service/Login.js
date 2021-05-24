@@ -1,7 +1,6 @@
 /* eslint-disable import/prefer-default-export */
-import { URL } from './URL.json';
-
 export const Login = async (loginObject) => {
+  const URL = window.env.REACT_APP_URL;
   const verifyURL = `${URL}/oauth/token`;
 
   const loginResponse = await fetch(verifyURL, {

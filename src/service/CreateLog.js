@@ -1,21 +1,23 @@
 /* eslint-disable import/prefer-default-export */
-export const CreateUser = async (newUser) => {
+export const CreateLog = async (newLog) => {
   const URL = window.env.REACT_APP_URL;
-  const usersURL = `${URL}/users`;
+  const loggersURL = `${URL}/loggers`;
+  const authorization = localStorage.getItem('Authorization') || '';
 
-  const createResponse = await fetch(usersURL, {
+  const createResponse = await fetch(loggersURL, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      authorization: `Bearer ${authorization}`,
     },
-    body: JSON.stringify(newUser),
+    body: JSON.stringify(newLog),
   });
 
   const { status } = createResponse;
   if (status !== 201) {
     const errorMessage = await createResponse.json();
+    console.log(errorMessage);
     return errorMessage;
   }
-  console.log(createResponse);
   return 'created';
 };
