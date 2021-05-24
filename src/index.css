@@ -171,10 +171,11 @@
   }
 
   .side-menu {
-    @apply ml-2 absolute flex flex-col justify-center items-start p-4 rounded h-1/5 w-3/5 lg:w-1/6 bg-red-500 z-40 text-xl text-white shadow-xl;
+    @apply ml-2 absolute flex flex-col justify-center items-start p-4 rounded h-1/5 w-3/5 lg:w-1/6 z-40 text-xl text-white shadow-xl;
     font-family: "Montserrat", sans-serif;
     left: 0%;
     top: 30%;
+    background-color: #ed1941;
   }
   .side-menu a, .side-menu button{
     @apply text-white transform transition-all hover:scale-110;
@@ -199,7 +200,8 @@
     @apply flex justify-center items-center w-2/5 h-1/6;
   }
   .page-list button {
-    @apply transform m-4 transition-all bg-red-500 w-20 h-16 hover:scale-110 rounded-xl focus:animate-pulse focus:outline-none text-2xl text-white;
+    @apply transform m-4 transition-all w-20 h-16 hover:scale-110 rounded-xl focus:animate-pulse focus:outline-none text-2xl text-white;
+    background-color: #ed1941;
   }
 
   .filter-form-container {
@@ -217,6 +219,11 @@
   .filter-form-container button {
     @apply transform bg-white rounded-lg text-center p-1 transition-all hover:scale-110;
   }
+  .spinner-loading {
+    @apply absolute z-50 fill-current;
+    top: 50%;
+    color: #ed1941;
+  }
 
 }
 
@@ -231,6 +238,11 @@
 
 #level {
   background-color: white;
+  color: black;
+  padding: 5px;
+}
+
+textarea {
   color: black;
   padding: 5px;
 }

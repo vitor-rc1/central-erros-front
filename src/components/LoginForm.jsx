@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { Login } from '../service/Login';
 import Loading from '../loading.gif';
 
 function LoginForm({ setRedirect }) {
@@ -8,7 +9,7 @@ function LoginForm({ setRedirect }) {
   const [loading, setLoading] = useState(false);
   const [password, setPassword] = useState('');
 
-  const submitLogin = (e) => {
+  const submitLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
     const loginObject = new URLSearchParams({
@@ -18,21 +19,15 @@ function LoginForm({ setRedirect }) {
       client_id: 'client_id',
       client_secret: 'client_secret',
     });
-    fetch('https://centraldeerrosjava.herokuapp.com/oauth/token', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: loginObject,
-    })
-      .then((response) => response.json())
-      .then((json) => {
-        if (json.access_token) {
-          localStorage.setItem('Authorization', `Bearer ${json.access_token}`);
-          setRedirect(true);
-        }
-        setLoading(false);
-      });
+
+    const response = await Login(loginObject);
+    if (response) {
+      setRedirect(true);
+    } else {
+      alert('Login ou senha invalidos');
+    }
+
+    setLoading(false);
   };
   if (loading) return <img src={Loading} alt="loading" />;
   return (

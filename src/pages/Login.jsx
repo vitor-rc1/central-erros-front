@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import Header from '../components/Header';
-import * as Actions from '../actions/index';
 import LoginForm from '../components/LoginForm';
 import { isAuthenticated } from '../service/Auth';
 import MakeTheirTomorrow from './MakeTheirTomorrowLoading';
@@ -10,17 +8,13 @@ import MakeTheirTomorrow from './MakeTheirTomorrowLoading';
 function Login() {
   const [redirect, setRedirect] = useState(false);
   const [loading, setLoading] = useState(true);
-  const dispatch = useDispatch();
 
   useEffect(async () => {
     const authenticated = await isAuthenticated();
-    if (authenticated[1]) {
-      dispatch(Actions.storageAllLoggers(authenticated[0]));
-      setRedirect(authenticated[1]);
-      return setLoading(false);
+    if (authenticated) {
+      setRedirect(true);
     }
-    setLoading(false);
-    return setRedirect(authenticated[0]);
+    return setLoading(false);
   }, []);
   if (loading) return <MakeTheirTomorrow />;
   if (redirect) return <Redirect to="/dashboard" />;

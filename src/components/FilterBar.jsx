@@ -1,59 +1,130 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import * as Actions from '../actions/index';
-import { pagenation } from '../service/Pagenation';
+import convertDateTime from '../helpers/convertDateTime';
 
 function FilterBar() {
-  const [columnFilter, setColumnFilter] = useState('');
-  const [filterText, setFilterText] = useState('');
-  const Authorization = localStorage.getItem('Authorization') || '';
+  const [clear, setClear] = useState(false);
   const dispatch = useDispatch();
-  const fetchFilter = (e) => {
-    e.preventDefault();
-    const customUrl = `https://centraldeerrosjava.herokuapp.com/loggers?filter=${columnFilter}&value=${filterText}`;
-    fetch(
-      customUrl,
-      {
-        method: 'GET',
-        headers: {
-          authorization: Authorization,
-        },
-      },
-      [],
-    )
-      .then((resolve) => resolve.json())
-      .then((json) => {
-        if (json.error) return json;
-        const arrayPageable = pagenation(json, 8);
-        dispatch(Actions.currentPageLog(arrayPageable[0]));
-        return dispatch(Actions.storageAllLoggers(arrayPageable));
-      })
-      .catch((error) => console.log(error));
+
+  const {
+    filterBar: {
+      column: columnFilter, value: filterText, dateStart, dateEnd,
+    },
+  } = useSelector((state) => state.loggers);
+
+  const fetchFilter = (event) => {
+    // eslint-disable-next-line no-unused-vars
+    if (event) event.preventDefault();
+    dispatch(Actions.setFilter({
+      column: columnFilter,
+      value: filterText,
+    }));
+    // ao fazer um novo filtro, volta a página para a primeira posição
+    dispatch(Actions.currentPageLog(0));
   };
 
+  useEffect(() => {
+    if (columnFilter === 'date') {
+      const date = `${convertDateTime(dateStart)}and${convertDateTime(dateEnd)}`;
+      dispatch(Actions.setFilterBarValues({ value: date, column: 'value' }));
+    }
+  }, [dateEnd, dateStart]);
+
+  const clearFilter = () => {
+    dispatch(Actions.setFilterBarValues({ value: '', column: 'column' }));
+    dispatch(Actions.setFilterBarValues({ value: '', column: 'value' }));
+    dispatch(Actions.setFilterBarValues({ value: '', column: 'dateStart' }));
+    dispatch(Actions.setFilterBarValues({ value: '', column: 'dateEnd' }));
+    setClear(true);
+  };
+
+  useEffect(() => {
+    if (clear && !filterText && !columnFilter) {
+      fetchFilter();
+    }
+  }, [clear, filterText, columnFilter]);
+
   const textInput = (
-    <input
-      onChange={({ target }) => setFilterText(target.value)}
-      id="text"
-      type="text"
-    />
+    <>
+      Valor
+      <input
+        onChange={({ target }) => dispatch(Actions.setFilterBarValues({ value: target.value, column: 'value' }))}
+        value={filterText}
+        id="text"
+        type="text"
+      />
+    </>
+  );
+
+  const numberInput = (
+    <>
+      Valor
+      <input
+        onChange={({ target }) => dispatch(Actions.setFilterBarValues({ value: target.value, column: 'value' }))}
+        value={filterText}
+        id="text"
+        type="number"
+        min="1"
+      />
+    </>
   );
 
   const levelInput = (
-    <select
-      value={filterText}
-      onChange={({ target }) => setFilterText(target.value)}
-      id="text"
-      type="text"
-    >
-      <option hidden>...</option>
-      <option default value="ERROR">
-        ERROR
-      </option>
-      <option value="INFO">INFO</option>
-      <option value="WARNING">WARNING</option>
-    </select>
+    <>
+      Valor
+      <select
+        value={filterText}
+        onChange={({ target }) => dispatch(Actions.setFilterBarValues({ value: target.value, column: 'value' }))}
+        id="text"
+      >
+        <option hidden>...</option>
+        <option default value="ERROR">
+          ERROR
+        </option>
+        <option value="INFO">INFO</option>
+        <option value="WARNING">WARNING</option>
+      </select>
+    </>
   );
+
+  const dateInput = (
+    <>
+      Inicio
+      <input
+        onChange={({ target }) => dispatch(Actions.setFilterBarValues({ value: target.value, column: 'dateStart' }))}
+        type="datetime-local"
+        name="date"
+        id="date"
+        value={dateStart}
+        required
+      />
+      Fim
+      <input
+        onChange={({ target }) => dispatch(Actions.setFilterBarValues({ value: target.value, column: 'dateEnd' }))}
+        type="datetime-local"
+        name="date"
+        id="date"
+        value={dateEnd}
+        required
+      />
+    </>
+  );
+
+  const selectInput = (colFilter) => {
+    switch (colFilter) {
+      case 'level':
+        return levelInput;
+      case 'date':
+        return dateInput;
+      case 'id':
+        return numberInput;
+      case 'quantity':
+        return numberInput;
+      default:
+        return textInput;
+    }
+  };
 
   return (
     <form className="filter-form-container" onSubmit={fetchFilter}>
@@ -62,20 +133,22 @@ function FilterBar() {
         <select
           id="filter"
           value={columnFilter}
-          onChange={({ target }) => setColumnFilter(target.value)}
+          onChange={({ target }) => dispatch(Actions.setFilterBarValues({ value: target.value, column: 'column' }))}
         >
+          <option hidden>...</option>
           <option value="date">Data</option>
           <option value="description">Descrição</option>
           <option value="source">Origem</option>
           <option value="quantity">Quantidade</option>
           <option value="level">Level</option>
+          <option value="id">Id</option>
         </select>
       </label>
       <label htmlFor="text">
-        Valor
-        {columnFilter === 'level' ? levelInput : textInput}
+        {selectInput(columnFilter)}
       </label>
       <button type="submit">Pesquisar</button>
+      <button type="button" onClick={clearFilter}>Limpar</button>
     </form>
   );
 }

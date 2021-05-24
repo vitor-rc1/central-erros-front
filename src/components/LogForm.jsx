@@ -4,9 +4,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import Loading from '../loading.gif';
 import convertDateTime from '../helpers/convertDateTime';
+import { CreateLog } from '../service/CreateLog';
 
 function RegisterForm() {
-  const Authorization = localStorage.getItem('Authorization') || '';
   const [registerState, setRegisterState] = useState('');
   const [erros, setErros] = useState({});
 
@@ -31,20 +31,11 @@ function RegisterForm() {
       date: convertedDate,
     };
 
-    const response = await fetch('https://centraldeerrosjava.herokuapp.com/loggers', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization,
-      },
-      body: JSON.stringify(loggerObject),
-    });
-    if (response.status === 201) {
+    const response = await CreateLog(loggerObject);
+    if (response === 'created') {
       setRegisterState('done');
     } else {
-      const responseErro = await response.json();
-      console.log(responseErro);
-      setErros(responseErro);
+      setErros(response);
     }
   };
 
