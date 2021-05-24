@@ -28,7 +28,10 @@ Aqui é possível cadastrar o usuário e ao ter sucesso, será redirecionado uma
 o que está errado. Após isso, uma tela aparecerá perguntando se você quer ir para a tela de login.
 ## Tela do **Dashboard**
 ![login_img](images/dashboard.png)
-O coração da aplicação, o Dashboard. Aqui é possível visualizar todos os logs divididos em tabelas, ao clicar em algum, mostrará uma informação adicional do log em formato de pop up.
+O coração da aplicação, o Dashboard. Aqui é possível visualizar todos os logs divididos em tabelas, ao clicar em algum, mostrará uma informação adicional do log em formato de pop up. 
+
+> No médio inferior você conseguirá ver o nosso sistema de paginação.
+
 ### Filtragem
 No campo médio superior podemos filtrar por diversos campos, como:
 - Id
