@@ -1,18 +1,23 @@
 # Bem vindo ao front-end do **Central de erros**!
 Este é o front-end do projeto de conclusão do Acelera Dev Java Online, proporcionada pela CI&T e Trybe!
 Aqui está a representação em uma aplicação Web da força da nossa [API](https://github.com/PedroMarqdev/CentralErrosCodenation).
+
 > Por amor e agradecimento a CI&T,  o projeto foi estilizado inteiramente com a branding da CI&T.
+
 ## Grupo
 - Pedro Paulo Marques da Costa [Github](https://github.com/PedroMarqdev) [Linkedin](https://www.linkedin.com/in/pedro-marques-9aaa651b4/)
 - Vitor
 - Berilo
+
 ## Tecnologias
 - React (React-router, Hooks)
 - Redux.js
 - TailwindCSS
+
 # Aplicação!
 > [Site](https://central-errors.vercel.app/)
 > Não é possível acessar a Dashboard da aplicação sem estar autenticado.
+
 ## Tela de **Login**
 ![login_img](images/login.png)
 Aqui há a possibilidade de logar com o usuário e também ir até a página de registro para criar um novo login.
@@ -31,7 +36,9 @@ No campo médio superior podemos filtrar por diversos campos, como:
 - Level
 - Origem
 - Data | Inicío e fim (Intervalo)
+
 > Ao clicar em cada atributo do header da tablela, é filtrado por ordem do atributo selecionado.
+
 ## Tela do **Cadastro de Logs**
 Aqui não há segredo, é possível cadastrar um novo log inserindo as informações necessárias.
 ![login_img](images/cadastro_log.png)
