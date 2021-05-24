@@ -6,8 +6,8 @@ Aqui está a representação em uma aplicação Web da força da nossa [API](htt
 
 ## Grupo
 - Pedro Paulo Marques da Costa -> [Github](https://github.com/PedroMarqdev) | [Linkedin](https://www.linkedin.com/in/pedro-marques-9aaa651b4/)
-- Vitor
-- Berilo
+- Vitor -> [Github](https://github.com/vitor-rc1) | [Linkedin](https://www.linkedin.com/in/vitorrodrig/)
+- Berilo -> [Github](https://github.com/wberilo) | [Linkedin](https://www.linkedin.com/in/berilo/)
 
 ## Tecnologias
 - React (React-router, Hooks)
