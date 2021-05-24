@@ -1,70 +1,43 @@
-# Getting Started with Create React App
+# Bem vindo ao front-end do **Central de erros**!
+Aqui está a representação em uma aplicação Web da força da nossa [API](https://github.com/PedroMarqdev/CentralErrosCodenation).
+> Por amor e agradecimento a CI&T,  o projeto foi estilizado inteiramente com a branding da CI&T.
+## Grupo
+- Pedro Paulo Marques da Costa [Github](https://github.com/PedroMarqdev) [Linkedin](https://www.linkedin.com/in/pedro-marques-9aaa651b4/)
+- Vitor
+- Berilo
+## Tecnologias
+- React (React-router, Hooks)
+- Redux.js
+- TailwindCSS
+# Aplicação!
+> [Site](https://central-errors.vercel.app/)
+> Não é possível acessar a Dashboard da aplicação sem estar autenticado.
+## Tela de **Login**
+![login_img](images/login.png)
+Aqui há a possibilidade de logar com o usuário e também ir até a página de registro para criar um novo login.
+Ao clicar em central de erros, será redirecionado para a tela de login.
+## Tela de **Registro**
+![login_img](images/registro_usuario.png)
+Aqui é possível cadastrar o usuário e ao ter sucesso, será redirecionado uma mensagem de feedback. Caso não, terá alertas ou o campo tremerá para demonstrar
+o que está errado. Após isso, uma tela aparecerá perguntando se você quer ir para a tela de login.
+## Tela do **Dashboard**
+![login_img](images/dashboard.png)
+O coração da aplicação, o Dashboard. Aqui é possível visualizar todos os logs divididos em tabelas, ao clicar em algum, mostrará uma informação adicional do log em formato de pop up.
+### Filtragem
+No campo médio superior podemos filtrar por diversos campos, como:
+-Id
+-Descrição
+-Level
+-Origem
+-Data | Inicío e fim (Intervalo)
+> Ao clicar em cada atributo do header da tablela, é filtrado por ordem do atributo selecionado.
+## Tela do **Cadastro de Logs**
+Aqui não há segredo, é possível cadastrar um novo log inserindo as informações necessárias.
+![login_img](images/cadastro_log.png)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Instalação
 
-## Available Scripts
-
-In the project directory, you can run:
-
-### `yarn start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
+Para instalar as dependências do projeto, você pode utilizar:
 ### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+E para abrir a aplicação, você pode utilizar:
+### `yarn start`
